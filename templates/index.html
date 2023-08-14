@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>산불 판별 서비스</title>
+</head>
+<body>
+    <h1>산불 판별 서비스</h1>
+    <div style="display: flex;">
+        {% if original_img_data %}
+        <div style="width: 50%; text-align: center;">
+            <img src="data:image/png;base64,{{ original_img_data }}" alt="원본 이미지" style="width: 100%;">
+            <p>원본</p>
+        </div>
+        {% endif %}
+        {% if predicted_img_data %}
+        <div style="width: 50%; text-align: center;">
+            <img src="data:image/png;base64,{{ predicted_img_data }}" alt="예측 결과" style="width: 100%;">
+            <p>예측 결과</p>
+        </div>
+        {% endif %}
+    </div>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <input type="submit" value="판별하기">
+    </form>
+</body>
+</html>
+
+
