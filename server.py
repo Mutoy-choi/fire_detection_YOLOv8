@@ -1,12 +1,11 @@
 from ultralytics import YOLO
 import torch
 from PIL import Image
-from bottle import Bottle, request, template, static_file
+from flask import Flask, request, render_template, send_from_directory
 from io import BytesIO
 import base64
-from waitress import serve
 
-app = Bottle()
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = YOLO("runs/detect/train18/weights/best.pt")
@@ -14,13 +13,13 @@ model.to(device)
 
 @app.route('/')
 def index():
-    return template('index.html')
+    return render_template('index.html', original_img_data="", predicted_img_data="")
 
-@app.route('/predict', method=['GET', 'POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     if request.method == 'POST':
-        file = request.files.get('file')
-        img = Image.open(file.file)  # 원본 이미지
+        file = request.files['file']
+        img = Image.open(file.stream)  # 원본 이미지
 
         # 이미지 전처리 및 모델에 입력
         results = model(img)
@@ -40,10 +39,10 @@ def predict():
         predicted_img_str = base64.b64encode(buffered_pred.getvalue()).decode()
 
         # Base64로 인코딩된 이미지를 HTML 페이지에 전달
-        return template('index.html', original_img_data=img_str, predicted_img_data=predicted_img_str)
+        return render_template('index.html', original_img_data=img_str, predicted_img_data=predicted_img_str)
     else:
-        return template('index.html')
+        return render_template('index.html')
 
 if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port=12321)
+    app.run(host='0.0.0.0', port=12321, debug=True)
 
