@@ -32,7 +32,7 @@ python server.py
 서버는 이미지를 처리하고, 원본 이미지와 객체 검출 결과를 함께 시각화하여 보여줍니다.
 
 예시
-![Uploading example.PNG…]()
+![example](https://github.com/Mutoy-choi/fire_detection_YOLOv8/assets/87027571/e82135d7-314b-4750-84d3-16b0e1f628ae)
 
 
 ## 웹 사이트 종료
