@@ -2,14 +2,14 @@
 
 Yolov8을 사용한 fire detection
 
-bottle 라이브러리를 사용해서 server.py에 로컬 서비스를 구축했습니다.
+flask 라이브러리를 사용해서 server.py에 로컬 서비스를 구축했습니다.
 
 
 ## 코드 실행 환경 구성
 
 코드를 실행하기 위해 다음 단계를 수행해야 합니다:
 
-필요한 라이브러리(ultralytics, torch, PIL, bottle, waitress)를 설치합니다.
+필요한 라이브러리(ultralytics, torch, PIL, flask, waitress)를 설치합니다.
 해당 코드를 복사하여 파이썬 스크립트 파일로 저장합니다.
 별도의 index.html 파일이 필요하므로 해당 파일도 생성합니다.
 웹 서버 실행:
